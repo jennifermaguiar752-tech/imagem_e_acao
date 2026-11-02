@@ -1,4 +1,4 @@
-const CACHE = 'imagem-acao-v2';
+const CACHE = 'imagem-acao-v3';
 const ARQUIVOS = ['./', './index.html', './app.js', './words.js', './manifest.json', './icon.svg'];
 
 self.addEventListener('install', e => {
