@@ -1,7 +1,7 @@
 {
   "name": "Imagem em Ação",
   "short_name": "Imagem Ação",
-  "description": "Jogo de desenhar e adivinhar em grupos",
+  "description": "Jogo de mímica em grupos com tabuleiro",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

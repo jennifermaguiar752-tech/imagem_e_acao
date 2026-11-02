@@ -79,7 +79,7 @@ function telaInicio(){
       <label>Fim de jogo ${sel('modoFim',[['chegada','Primeiro a chegar ao fim'],['rodadas','Número de rodadas']],cfg.modoFim,
         `onchange="$('#rodLabel').style.display=this.value==='rodadas'?'block':'none'"`)}</label>
       <label id="rodLabel" style="display:${cfg.modoFim==='rodadas'?'block':'none'}">Quantidade de rodadas ${sel('rodadas',[3,5,8,10,15,20],cfg.rodadas)}</label>
-      <label>Tempo para desenhar ${sel('tempo',[[30,'30 segundos'],[45,'45 segundos'],[60,'1 minuto'],[90,'1min30'],[120,'2 minutos']],cfg.tempo)}</label>
+      <label>Tempo da mímica ${sel('tempo',[[30,'30 segundos'],[45,'45 segundos'],[60,'1 minuto'],[90,'1min30'],[120,'2 minutos']],cfg.tempo)}</label>
       <label>Categoria definida por ${sel('modoCat',[['casa','Casa do tabuleiro'],['dado','Dado de categoria']],cfg.modoCat)}</label>
       <label class="check"><input type="checkbox" id="todos" ${cfg.todos?'checked':''}> Casas ★ "Todos Jogam"</label>
       <label class="check"><input type="checkbox" id="denovo" ${cfg.denovo?'checked':''}> Quem acerta joga de novo</label>
@@ -239,7 +239,7 @@ function catBox(c){ return `<div class="catbox" style="background:${CATS[c].cor}
 function desenharPainel(){
   const p = $('#painel'); if(!p) return;
   const t = S.teams[S.vez], casa = S.casas[t.pos], todos = casa.todos;
-  const bTodos = todos ? `<div class="banner">★ TODOS JOGAM! Um de cada grupo desenha a mesma palavra</div>` : '';
+  const bTodos = todos ? `<div class="banner">★ TODOS JOGAM! Um de cada grupo faz a mímica da mesma palavra</div>` : '';
   let h = '';
 
   if(S.fase==='pronto'){
@@ -249,7 +249,7 @@ function desenharPainel(){
         <button class="btn big" id="bRolar" onclick="rolarCategoria()">🎲 Rolar categoria</button>`;
     } else {
       h = `${bTodos}${catBox(S.cat)}
-        <p>Quem vai desenhar ${todos?'(um de cada grupo)':`do <b>${esc(t.nome)}</b>`} pega o celular.<br>
+        <p>Quem vai fazer a mímica ${todos?'(um de cada grupo)':`do <b>${esc(t.nome)}</b>`} pega o celular.<br>
         <small>Os outros: não olhem! 🙈</small></p>
         <button class="btn big" onclick="verPalavra()">👁 Ver palavra</button>`;
     }
@@ -456,15 +456,17 @@ function regras(){
   modal(`<h2>📖 Como jogar</h2>
     <p>1. Os jogadores são sorteados em grupos.</p>
     <p>2. Na sua vez, o grupo joga a categoria da casa onde está (ou rola o dado de categoria, se essa opção estiver ligada).</p>
-    <p>3. Um jogador do grupo vê a palavra escondido e <b>desenha</b>: nada de letras, números, gestos ou falar!</p>
-    <p>4. O resto do grupo tenta adivinhar antes do tempo acabar.</p>
-    <p>5. <b>Acertou:</b> rola o dado e anda (e joga de novo, se a opção estiver ligada). <b>Errou:</b> passa a vez.</p>
-    <p>6. <b>★ Todos jogam:</b> um desenhista de cada grupo desenha a mesma palavra ao mesmo tempo. Quem acertar primeiro anda.</p>
-    <p>7. Vence quem chegar ao 🏁 primeiro (ou quem estiver mais à frente quando acabarem as rodadas).</p>
+    <p>3. Um jogador do grupo vê a palavra escondido, aperta <b>Valendo!</b>, deixa o celular onde todos vejam o tempo e faz a <b>mímica</b>.</p>
+    <p>4. <b>Proibido:</b> falar, fazer sons, mexer a boca formando palavras, apontar para objetos ou pessoas da sala e soletrar com os dedos.</p>
+    <p>5. <b>Pode:</b> mostrar com os dedos o número de palavras e de sílabas, e fazer o gesto de "parece com" (puxar a orelha).</p>
+    <p>6. O resto do grupo tenta adivinhar antes do tempo acabar.</p>
+    <p>7. <b>Acertou:</b> rola o dado e anda (e joga de novo, se a opção estiver ligada). <b>Errou:</b> passa a vez.</p>
+    <p>8. <b>★ Todos jogam:</b> um jogador de cada grupo faz a mímica da mesma palavra ao mesmo tempo. Quem acertar primeiro anda.</p>
+    <p>9. Vence quem chegar ao 🏁 primeiro (ou quem estiver mais à frente quando acabarem as rodadas).</p>
     <h3>Categorias</h3>
     ${ORDEM.map(c=>`<p><span class="leg" style="background:${CATS[c].cor}">${c}</span><b>${CATS[c].nome}</b> — ${{
       P:'pessoas, profissões e personagens', O:'objetos e coisas', A:'ações e verbos',
-      D:'ideias abstratas e difíceis', L:'diversão, esportes, festas e passeios', M:'de tudo: animais, lugares, comidas...'}[c]}</p>`).join('')}
+      D:'ideias abstratas e expressões', L:'diversão, esportes, festas e passeios', M:'de tudo: animais, lugares, comidas, filmes...'}[c]}</p>`).join('')}
     <button class="btn" onclick="fecharModal()">Entendi!</button>`);
 }
 
