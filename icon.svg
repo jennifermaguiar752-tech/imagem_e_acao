@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="110" fill="#4b2bbd"/>
+  <circle cx="256" cy="230" r="150" fill="#ffd23f"/>
+  <path d="M170 330 L330 170 L370 210 L210 370 L160 380 Z" fill="#ff4d6d" stroke="#222" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M330 170 L370 210" stroke="#222" stroke-width="12"/>
+  <text x="256" y="470" font-family="Arial Black,Arial" font-weight="900" font-size="80" fill="#fff" text-anchor="middle">I &amp; A</text>
+</svg>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4b2bbd">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Imagem em Ação">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>Imagem em Ação</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:linear-gradient(160deg,#4b2bbd,#2a1670);color:#222;min-height:100dvh;-webkit-user-select:none;user-select:none;overscroll-behavior:none}
+#app{max-width:520px;margin:0 auto;min-height:100dvh}
+.screen{padding:20px 16px 40px;display:flex;flex-direction:column;gap:14px}
+.center{text-align:center}
+.logo{color:#fff;text-align:center;font-size:2.6rem;line-height:1;margin:10px 0;text-shadow:0 4px 0 rgba(0,0,0,.25);font-weight:900}
+.logo span{color:#ffd23f}
+.logo.small{font-size:1.9rem}
+.card{background:#fff;border-radius:18px;padding:16px;box-shadow:0 6px 0 rgba(0,0,0,.15)}
+.card h2{font-size:1.1rem;margin-bottom:8px}
+.hint{font-size:.85rem;color:#666;margin-bottom:6px}
+.hint.light{color:#ddd;text-align:center}
+textarea,select{width:100%;font-size:1rem;padding:10px;border:2px solid #ddd;border-radius:12px;font-family:inherit;background:#fff;-webkit-user-select:text;user-select:text}
+label{display:block;font-weight:600;font-size:.9rem;margin-top:10px}
+label select{margin-top:4px}
+label.check{display:flex;align-items:center;gap:10px}
+label.check input{width:22px;height:22px}
+.btn{border:0;border-radius:14px;padding:12px 16px;font-size:1rem;font-weight:800;background:#ff4d6d;color:#fff;box-shadow:0 4px 0 rgba(0,0,0,.25);cursor:pointer;width:100%;font-family:inherit}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.btn.big{font-size:1.2rem;padding:16px}
+.btn.green{background:#06c48f}.btn.red{background:#e63946}.btn.gray{background:#8a8a99}
+.btn.ghost{background:transparent;box-shadow:none;color:#fff;text-decoration:underline}
+.btn.ghost.dark{color:#555}
+.btn:disabled{opacity:.5}
+.row{display:flex;gap:10px;width:100%}
+.row .btn{flex:1}
+.grupo{border-left:10px solid var(--c)}
+.grupo h3{color:var(--c);margin-bottom:6px;cursor:pointer}
+/* JOGO */
+.game{display:flex;flex-direction:column;height:100dvh}
+.topo{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));background:var(--c);color:#fff;transition:background .3s}
+.topo div{text-align:center}.topo small{display:block;opacity:.9;font-size:.8rem}.topo b{font-size:1.2rem}
+.icon{background:rgba(255,255,255,.25);border:0;color:#fff;font-size:1.3rem;width:42px;height:42px;border-radius:12px}
+.placar{display:flex;gap:6px;overflow-x:auto;padding:8px 10px;flex:none}
+.chip{flex:none;background:rgba(255,255,255,.15);color:#fff;border-radius:20px;padding:4px 10px;font-size:.8rem;display:flex;align-items:center;gap:5px;border:2px solid transparent}
+.chip.on{border-color:#fff;background:rgba(255,255,255,.3)}
+.chip i{width:12px;height:12px;border-radius:50%;background:var(--c)}
+.board{display:grid;gap:4px;padding:4px 10px 10px;overflow-y:auto;flex:1 1 auto;min-height:110px;align-content:start}
+.casa{position:relative;aspect-ratio:1;border-radius:10px;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;box-shadow:inset 0 -3px 0 rgba(0,0,0,.25)}
+.casa .num{position:absolute;top:2px;left:4px;font-size:.55rem;opacity:.9;font-weight:600}
+.casa .star{position:absolute;top:1px;right:4px;font-size:.75rem;color:#fff}
+.casa.fim{background:repeating-conic-gradient(#111 0 25%,#444 0 50%) 0 0/16px 16px!important}
+.fichas{position:absolute;bottom:2px;left:0;right:0;display:flex;justify-content:center;flex-wrap:wrap;gap:2px}
+.ficha{width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 3px #0008}
+.ficha.pulse{animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.4)}}
+.painel{background:#fff;border-radius:22px 22px 0 0;padding:16px;padding-bottom:max(16px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;flex:none;box-shadow:0 -6px 20px rgba(0,0,0,.25)}
+.catbox{color:#fff;border-radius:16px;padding:8px 22px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 0 rgba(0,0,0,.2)}
+.catbox b{font-size:2.2rem}.catbox span{font-size:1.3rem;font-weight:800}
+.dado{width:90px;height:90px;border-radius:18px;background:#fff;border:4px solid #222;font-size:3rem;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 5px 0 #222}
+.rolando{animation:shake .15s infinite}
+@keyframes shake{0%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}100%{transform:rotate(-12deg)}}
+.palavra{width:100%;min-height:86px;border-radius:16px;border:3px dashed #bbb;display:flex;align-items:center;justify-content:center;font-size:1.9rem;font-weight:900;padding:10px;background:#f6f6f6;cursor:pointer}
+.palavra.oculta{color:#999;font-size:1rem;font-weight:600}
+.relogio{width:130px;height:130px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p)*1turn),#eee 0);display:flex;align-items:center;justify-content:center}
+.relogio span{width:104px;height:104px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:2.8rem;font-weight:900}
+.relogio.urgente span{color:#e63946;animation:pulse .5s infinite}
+.banner{background:#ffd23f;color:#222;font-weight:800;padding:8px 12px;border-radius:12px;width:100%}
+.banner.red{background:#e63946;color:#fff}.banner.green{background:#06c48f;color:#fff}
+.teambtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.toast{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.65);z-index:50}
+.toast>div{color:#fff;font-size:1.8rem;font-weight:900;padding:30px 24px;border-radius:22px;text-align:center;max-width:85%;box-shadow:0 8px 0 rgba(0,0,0,.3);animation:pop .3s}
+.toast small{font-size:1rem;font-weight:600}
+.tap{font-size:.8rem;font-weight:500;opacity:.85;margin-top:14px}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:60;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:#fff;border-radius:20px;padding:20px;max-width:480px;width:100%;max-height:85dvh;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.modal-box p{font-size:.95rem;line-height:1.4}
+.leg{display:inline-block;width:26px;text-align:center;color:#fff;border-radius:6px;font-weight:900;margin-right:6px}
+.trofeu{font-size:5rem;animation:pop .6s}
+.rank{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #eee}
+.rank i{width:14px;height:14px;border-radius:50%;background:var(--c)}
+.rank span{flex:1;text-align:left;font-weight:700}
+.rank small{color:#666}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="words.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

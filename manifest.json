@@ -1,0 +1,14 @@
+{
+  "name": "Imagem em Ação",
+  "short_name": "Imagem Ação",
+  "description": "Jogo de desenhar e adivinhar em grupos",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2a1670",
+  "theme_color": "#4b2bbd",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
